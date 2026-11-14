@@ -42,10 +42,10 @@ footer { text-align: center; color: #666; font-size: 14px; padding: 24px; }
 <p>Listabit is not a price comparison site. The goal is reuse and sustainability.</p>
 
 <h2>Submit links for a product</h2>
-<p>Bought shoes in a shop? Listed them used on Vinted? Paste all the links for the same product below, one link per line. We review every submission manually before it appears in the extension.</p>
+<p>Found a product you sell or want to see in Listabit? Paste one link below. We review it manually and find where else the same product is available.</p>
 <form id="form">
-<label for="links">Links for the same product, one per line</label>
-<textarea id="links" required placeholder="https://shop.example/product&#10;https://www.vinted.com/item/..."></textarea>
+<label for="links">Link to the product</label>
+<input id="links" type="url" required placeholder="https://shop.example/product">
 <label for="city">City (optional)</label>
 <input id="city" type="text" placeholder="Cluj-Napoca">
 <label for="condition">Condition</label>
@@ -54,7 +54,7 @@ footer { text-align: center; color: #666; font-size: 14px; padding: 24px; }
 <input id="size" type="text" placeholder="e.g. 42">
 <label for="note">Note (optional)</label>
 <input id="note" type="text" placeholder="e.g. size 42">
-<button type="submit">Send links</button>
+<button type="submit">Send link</button>
 <div id="msg"></div>
 </form>
 <p>Want to submit more products? Write to us.</p>
