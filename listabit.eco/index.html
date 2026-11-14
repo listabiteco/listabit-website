@@ -5,51 +5,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listabit - Find the same product, reused, near you</title>
 <style>
-body { font-family: system-ui, sans-serif; margin: 0; color: #111; background: #fff; line-height: 1.6; }
-header { background: #1bad3a; color: #fff; padding: 48px 20px; text-align: center; }
-header h1 { margin: 0; font-size: 36px; }
-header p { margin: 12px auto 0; max-width: 560px; font-size: 18px; }
-main { max-width: 680px; margin: 0 auto; padding: 32px 20px 48px; }
-h2 { margin-top: 40px; }
-.button { display: inline-block; background: #1bad3a; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; }
-.card { border: 1px solid #ddd; border-radius: 12px; padding: 16px; margin: 12px 0; }
-label { display: block; font-weight: 600; margin: 16px 0 6px; }
-input, textarea { width: 100%; box-sizing: border-box; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font: inherit; }
+body { font-family: system-ui, -apple-system, sans-serif; margin: 0; color: #17251a; background: #f6faf7; line-height: 1.6; }
+header { background: linear-gradient(135deg, #1bad3a, #0f7a26); color: #fff; padding: 64px 20px 56px; text-align: center; }
+header h1 { margin: 0; font-size: 48px; letter-spacing: -1px; }
+header p { margin: 14px auto 0; max-width: 560px; font-size: 19px; opacity: .95; }
+main { max-width: 720px; margin: 0 auto; padding: 16px 20px 56px; }
+h2 { margin-top: 48px; font-size: 26px; letter-spacing: -.5px; }
+.button { display: inline-block; background: #fff; color: #0f7a26; padding: 14px 28px; border-radius: 999px; text-decoration: none; font-weight: 700; margin-top: 24px; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+.button:hover { transform: translateY(-1px); }
+.card { background: #fff; border: 1px solid #e2ebe3; border-radius: 16px; padding: 20px; margin: 12px 0; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+.step { display: flex; gap: 16px; align-items: flex-start; }
+.step b.num { background: #1bad3a; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid .card { margin: 0; text-align: center; font-weight: 600; }
+form.card { padding: 28px; }
+label { display: block; font-weight: 600; margin: 16px 0 6px; font-size: 14px; }
+input, textarea { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #cfd8cf; border-radius: 10px; font: inherit; background: #fff; }
+input:focus { outline: 2px solid #1bad3a; border-color: #1bad3a; }
 textarea { min-height: 140px; }
-button { background: #1bad3a; color: #fff; border: 0; padding: 12px 20px; border-radius: 8px; font: inherit; font-weight: 600; cursor: pointer; margin-top: 16px; }
-footer { text-align: center; color: #666; font-size: 14px; padding: 24px; }
+button { background: #1bad3a; color: #fff; border: 0; padding: 14px 24px; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; margin-top: 20px; width: 100%; }
+button:hover { background: #159231; }
+footer { text-align: center; color: #666; font-size: 14px; padding: 32px; background: #fff; border-top: 1px solid #e2ebe3; }
+footer a { color: #0f7a26; }
 #msg { margin-top: 12px; font-weight: 600; }
+#recent a { color: #0f7a26; word-break: break-all; }
+@media (max-width: 600px) { header h1 { font-size: 36px; } .grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <header>
+<img src="listabit-icon.png" alt="Listabit logo" width="96" height="96" style="border-radius:20px">
 <h1>Listabit</h1>
-<p>Find the same product in other shops, used, for parts, or for rent, near you.</p>
+<p>Find the same product in other shops, used or for parts, near you.</p>
 <p><a class="button" href="https://chromewebstore.google.com/" target="_blank" rel="noopener">Add to Chrome - coming soon</a></p>
-<p style="font-size:14px; opacity:.9">Replace the link above with the Chrome Web Store link after publishing.</p>
 </header>
 <main>
 <h2>How it works</h2>
-<div class="card"><strong>1. Browse as usual.</strong> Open a product page in Chrome.</div>
-<div class="card"><strong>2. See the badge.</strong> The Listabit icon shows a number when the same product is in our database.</div>
-<div class="card"><strong>3. Click and choose.</strong> See the other links, with city, county, country and condition.</div>
+<div class="card step"><b class="num">1</b><div><strong>Browse as usual.</strong><br>Open a product page in Chrome.</div></div>
+<div class="card step"><b class="num">2</b><div><strong>See the badge.</strong><br>The Listabit icon shows a number when the same product is in our database.</div></div>
+<div class="card step"><b class="num">3</b><div><strong>Click and choose.</strong><br>See the other links, with city, county, country and condition.</div></div>
 
 <h2>What Listabit finds</h2>
+<div class="grid">
 <div class="card">Used products</div>
 <div class="card">Products for parts</div>
-<div class="card">Products for rent</div>
 <div class="card">Products near you, in your own city</div>
+</div>
 <p>Listabit is not a price comparison site. The goal is reuse and sustainability.</p>
 
-<h2>Submit links for a product</h2>
+<h2>Recently added</h2>
+<div id="recent">Loading...</div>
+
+<h2>Submit a product</h2>
 <p>Found a product you sell or want to see in Listabit? Paste one link below. We review it manually and find where else the same product is available.</p>
-<form id="form">
+<form id="form" class="card">
 <label for="links">Link to the product</label>
 <input id="links" type="url" required placeholder="https://shop.example/product">
 <label for="city">City (optional)</label>
 <input id="city" type="text" placeholder="Cluj-Napoca">
 <label for="condition">Condition</label>
-<input id="condition" type="text" placeholder="e.g. used, new, for parts, for rent">
+<input id="condition" type="text" placeholder="e.g. used, new, for parts">
 <label for="size">Size (optional)</label>
 <input id="size" type="text" placeholder="e.g. 42">
 <label for="note">Note (optional)</label>
@@ -58,12 +73,31 @@ footer { text-align: center; color: #666; font-size: 14px; padding: 24px; }
 <div id="msg"></div>
 </form>
 <p>Want to submit more products? Write to us.</p>
-<p style="font-size:14px; color:#666">Replace PASTE_YOUR_API_URL_HERE and PASTE_YOUR_ANON_KEY_HERE in config.js with your Supabase values, and run the SQL in submissions.sql first.</p>
 </main>
 <footer>
 <a href="blog/index.html">Blog</a> | <a href="privacy.html">Privacy Policy</a> | listabit.eco
 </footer>
 <script src="config.js"></script>
+<script>
+async function loadRecent() {
+  const el = document.getElementById("recent");
+  try {
+    const res = await fetch(SUPABASE_URL + "/rest/v1/listings?select=url,city,county,country,condition,size&order=created_at.desc&limit=10", {
+      headers: { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY }
+    });
+    if (!res.ok) { el.textContent = ""; return; }
+    const rows = await res.json();
+    if (!rows.length) { el.textContent = "No products added yet."; return; }
+    el.innerHTML = rows.map(r => {
+      const meta = [r.condition, r.city, r.county, r.country, r.size].filter(Boolean).join(" | ");
+      return '<div class="card"><a href="' + r.url + '" target="_blank" rel="noopener">' + r.url + '</a>' + (meta ? '<br><span style="color:#666">' + meta + '</span>' : '') + '</div>';
+    }).join("");
+  } catch (err) {
+    el.textContent = "";
+  }
+}
+loadRecent();
+</script>
 <script>
 document.getElementById("form").addEventListener("submit", async (e) => {
   e.preventDefault();
