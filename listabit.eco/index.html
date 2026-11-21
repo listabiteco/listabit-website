@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Listabit - Find the same product, reused, near you</title>
+<link rel="icon" type="image/png" href="listabit-icon.png">
 <style>
 body { font-family: system-ui, -apple-system, sans-serif; margin: 0; color: #17251a; background: #f6faf7; line-height: 1.6; }
 header { background: linear-gradient(135deg, #1bad3a, #0f7a26); color: #fff; padding: 64px 20px 56px; text-align: center; }
@@ -20,8 +21,9 @@ h2 { margin-top: 48px; font-size: 26px; letter-spacing: -.5px; }
 .grid .card { margin: 0; text-align: center; font-weight: 600; }
 form.card { padding: 28px; }
 label { display: block; font-weight: 600; margin: 16px 0 6px; font-size: 14px; }
-input, textarea { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #cfd8cf; border-radius: 10px; font: inherit; background: #fff; }
-input:focus { outline: 2px solid #1bad3a; border-color: #1bad3a; }
+input, select, textarea { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #cfd8cf; border-radius: 10px; font: inherit; background: #fff; }
+input:focus, select:focus { outline: 2px solid #1bad3a; border-color: #1bad3a; }
+select { appearance: none; -webkit-appearance: none; cursor: pointer; padding-right: 40px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M3 6l5 5 5-5' fill='none' stroke='%230f7a26' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
 textarea { min-height: 140px; }
 button { background: #1bad3a; color: #fff; border: 0; padding: 14px 24px; border-radius: 999px; font: inherit; font-weight: 700; cursor: pointer; margin-top: 20px; width: 100%; }
 button:hover { background: #159231; }
@@ -54,14 +56,23 @@ footer a { color: #0f7a26; }
 <p>Listabit is not a price comparison site. The goal is reuse and sustainability.</p>
 
 <h2>Submit a product</h2>
-<p>Found a product you sell or want to see in Listabit? Paste one link below. We review it manually and find where else the same product is available.</p>
+<p>Found a product you sell or want to see in Listabit? Paste two links below. We review them manually and check that they show the same product.</p>
 <form id="form" class="card">
-<label for="links">Link to the product</label>
+<label for="links">Link where you sell the product</label>
 <input id="links" type="url" required placeholder="https://shop.example/product">
+<label for="shop_link">Link to the same product in a webshop</label>
+<input id="shop_link" type="url" required placeholder="https://webshop.example/product">
 <label for="city">City (optional)</label>
 <input id="city" type="text" placeholder="Cluj-Napoca">
 <label for="condition">Condition</label>
-<input id="condition" type="text" placeholder="e.g. used, new, for parts">
+<select id="condition" required>
+<option value="" disabled selected>Select condition</option>
+<option value="new">New</option>
+<option value="like_new">Like new</option>
+<option value="used">Used</option>
+<option value="refurbished">Refurbished</option>
+<option value="for_parts">For parts</option>
+</select>
 <label for="size">Size (optional)</label>
 <input id="size" type="text" placeholder="e.g. 42">
 <label for="note">Note (optional)</label>
@@ -103,6 +114,7 @@ document.getElementById("form").addEventListener("submit", async (e) => {
   e.preventDefault();
   const msg = document.getElementById("msg");
   const links = document.getElementById("links").value.trim();
+  const shop_link = document.getElementById("shop_link").value.trim();
   const city = document.getElementById("city").value.trim();
   const condition = document.getElementById("condition").value.trim();
   const size = document.getElementById("size").value.trim();
@@ -117,7 +129,7 @@ document.getElementById("form").addEventListener("submit", async (e) => {
         "Content-Type": "application/json",
         Prefer: "return=minimal"
       },
-      body: JSON.stringify({ links_text: links, city: city || null, condition: condition || null, size: size || null, note: note || null, status: "pending" })
+      body: JSON.stringify({ links_text: links, shop_link: shop_link || null, city: city || null, condition: condition || null, size: size || null, note: note || null, status: "pending" })
     });
     msg.textContent = res.ok ? "Thank you! We will review your links." : "Something went wrong. Please try again.";
   } catch (err) {
